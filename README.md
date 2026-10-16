@@ -106,6 +106,8 @@ To reconfigure, edit the spec and run the same command; the panel is replaced in
 
 `Create_Random_Indicators_OEE` stands in for your own Production Process: any PP that returns the same output names works without changing the POD side.
 
+**Your OEE, your formula.** Plants rarely agree with a one-size-fits-all OEE calculation: what counts as planned downtime, which ideal cycle time to use, whether rework is good quantity. Because the calculation lives in the Production Process, you implement exactly the plant's definition there. The POD dashboard doesn't change, and it all stays standard configuration.
+
 **Spec reference** (full format in [`references/patterns.md`](references/patterns.md) §18):
 
 | Key | Meaning |
