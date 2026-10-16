@@ -4,8 +4,8 @@ Configure **SAP Digital Manufacturing POD 2.0** (*Manage PODs 2.0*) by describin
 
 It is built as a **Joule Desktop** skill. Because it uses the open `SKILL.md` format with plain Node.js scripts, it runs just as well in **Claude Code** and other agents that load skills.
 
-![OEE dashboard generated into a POD 2.0 order page (Fiori preview, sample values)](docs/img/oee-dashboard.png)
-*Generated from a 17-line spec: 41 widgets, 20 expression bindings, a Production Process load chain and a Refresh button. Validator errors before and after: 0 → 0.*
+![A new OEE page generated from scratch into a POD 2.0 (Fiori preview, sample values)](docs/img/oee-page.png)
+*A new OEE page built from scratch: 46 widgets, 20 expression bindings, a Production Process that runs on page enter, and a Refresh button. Validator errors before and after: 0 → 0.*
 
 ## Why: stay in standard
 
@@ -62,19 +62,19 @@ git clone https://github.com/robertriedel/POD2_Config_Skill.git
 4. **Validate against the baseline.** Tenant exports often carry old errors. The validator runs before and after, and the change is delivered only if it adds none.
 5. **Hand over.** You import the complete POD (Manage PODs 2.0 can't import single pages), resolve the Production Process placeholders in the designer's browse dialog, then **Save** and **Run**.
 
-## Worked example: a configurable OEE tab
+## Worked example: an OEE page from scratch
 
-Everything needed is in [`examples/oee/`](examples/oee/): a demo Order POD with an empty *OEE* tab and two specs.
+Everything is in [`examples/oee/`](examples/oee/). `OEE_DEMO.json` is the SAP Order template plus an empty `OEE` page (built like the template's GoodsReceipt page) and an **OEE** button in the order details header that opens it; `add-oee-page.js` reproduces that file from `templates/ORDER_POD.json`. The spec then fills the page:
 
 ```bash
 cd examples/oee
-node ../../scripts/build-panel.js POD_SKILL_DEMO.json POD_SKILL_DEMO.oee.spec.json --preview
+node ../../scripts/build-panel.js OEE_DEMO.json OEE_DEMO.oee.spec.json --preview
 ```
 
 ```text
-wrote POD_SKILL_DEMO.oee.json
+wrote OEE_DEMO.oee.json
 validator errors: baseline 0 → result 0
-wrote POD_SKILL_DEMO.oee.preview.html  — open in a browser (needs internet for the SAPUI5 CDN)
+wrote OEE_DEMO.oee.preview.html  — open in a browser (needs internet for the SAPUI5 CDN)
 ```
 
 The spec is the whole design:
@@ -82,7 +82,7 @@ The spec is the whole design:
 ```json
 {
   "prefix": "OEE",
-  "target": { "tab": "OEE" },
+  "target": { "page": "OEE" },
   "title": "OEE Dashboard",
   "pp": { "name": "Create_Random_Indicators_OEE",
           "inputs": [ { "parameter": "inResource",
@@ -100,9 +100,11 @@ The spec is the whole design:
 }
 ```
 
-To reconfigure, edit the spec and run the same command; the panel is replaced in place. `POD_SKILL_DEMO.oee-scrap.spec.json` tightens the thresholds and adds a Scrap tile with `lowerIsBetter`:
+**Page enter.** Because the spec targets a page, the data load is wired to the page's own `pageEnter` event: `OEE_Busy` (BusyIndicator) → `OEE_LoadData` (synchronous Production Process call, output stored in the POD variable `_oee`). The tiles bind to `/_oee/…`, so they fill as soon as the page opens; until then they show "–". Refresh re-runs the same chain. A tab target uses `tabEnter` the same way.
 
-![Reconfigured dashboard with stricter thresholds and an inverted Scrap tile (sample values)](docs/img/oee-reconfigured.png)
+![The OEE button in the order details header](docs/img/oee-button.png)
+
+Re-running with the same prefix replaces the panel in place, so changing thresholds or tiles is a spec edit.
 
 `Create_Random_Indicators_OEE` stands in for your own Production Process: any PP that returns the same output names works without changing the POD side.
 
@@ -158,7 +160,7 @@ references/
 scripts/                    build-panel.js · preview-pod.js · validate-pod.js
 templates/                  SAP-generated Work Center / Operation Activity / Order exports;
                             PALETTE.json = every designer widget dropped once (class reference)
-examples/oee/               demo POD + OEE specs from the walkthrough above
+examples/oee/               OEE page from scratch: base POD, generator script for it, spec
 docs/img/                   screenshots
 ```
 

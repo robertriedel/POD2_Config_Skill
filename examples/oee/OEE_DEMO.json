@@ -1,9 +1,9 @@
 {
   "_version": 1,
-  "id": "POD_SKILL_DEMO",
+  "id": "OEE_DEMO",
   "description": "",
   "favicon": "",
-  "contentDensity": "Cozy",
+  "contentDensity": "Compact",
   "config": {},
   "pages": [
     {
@@ -275,6 +275,26 @@
                         "action": "sap.dm.dme.pod2.action.page.NavigateToPage",
                         "properties": {
                           "page": "GoodsReceipt"
+                        }
+                      }
+                    ]
+                  }
+                },
+                {
+                  "id": "ShowOEEButton",
+                  "widget": "sap.m.Button",
+                  "properties": {
+                    "text": "OEE",
+                    "icon": "sap-icon://performance",
+                    "type": "Transparent"
+                  },
+                  "events": {
+                    "press": [
+                      {
+                        "id": "NavigateToPage",
+                        "action": "sap.dm.dme.pod2.action.page.NavigateToPage",
+                        "properties": {
+                          "page": "OEE"
                         }
                       }
                     ]
@@ -1380,18 +1400,6 @@
                               "id": "ComponentConsumptionTab",
                               "widget": "sap.m.IconTabFilter",
                               "properties": {
-                                "text": "{i18n>OEE}",
-                                "icon": "sap-icon://org-chart",
-                                "design": "Horizontal"
-                              },
-                              "aggregations": {
-                                "content": []
-                              }
-                            },
-                            {
-                              "id": "IconTabFilter1",
-                              "widget": "sap.m.IconTabFilter",
-                              "properties": {
                                 "text": "{i18n>componentConsumption}",
                                 "icon": "sap-icon://org-chart",
                                 "design": "Horizontal"
@@ -1399,7 +1407,7 @@
                               "aggregations": {
                                 "content": [
                                   {
-                                    "id": "ComponentConsumptionListWidget2",
+                                    "id": "ComponentConsumptionListWidget1",
                                     "widget": "sap.dm.dme.pod2.sfccomponents.consumption.widget.ComponentConsumptionListWidget",
                                     "properties": {
                                       "alternateRowColors": false,
@@ -1425,7 +1433,7 @@
                                         {
                                           "id": "ComponentVersionColumn",
                                           "text": "{i18n>version}",
-                                          "field": "componentVersion",
+                                          "field": "version",
                                           "width": "10%"
                                         },
                                         {
@@ -1686,6 +1694,55 @@
             }
           }
         ]
+      }
+    },
+    {
+      "id": "OEE",
+      "widget": "sap.m.Page",
+      "properties": {
+        "showHeader": true,
+        "showFooter": false
+      },
+      "aggregations": {
+        "customHeader": [
+          {
+            "id": "OEEToolbar",
+            "widget": "sap.m.Toolbar",
+            "aggregations": {
+              "content": [
+                {
+                  "id": "OEEBackButton",
+                  "widget": "sap.m.Button",
+                  "properties": {
+                    "type": "Transparent",
+                    "icon": "sap-icon://nav-back",
+                    "width": "2.5rem",
+                    "height": "2.5rem"
+                  },
+                  "events": {
+                    "press": [
+                      {
+                        "id": "NavigateBackAction",
+                        "action": "sap.dm.dme.pod2.action.page.NavigateBack"
+                      }
+                    ]
+                  }
+                },
+                {
+                  "id": "OEETitle",
+                  "widget": "sap.m.Title",
+                  "properties": {
+                    "text": "OEE",
+                    "level": "Auto",
+                    "titleStyle": "H3",
+                    "wrapping": false
+                  }
+                }
+              ]
+            }
+          }
+        ],
+        "content": []
       }
     }
   ],

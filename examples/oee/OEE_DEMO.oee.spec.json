@@ -1,9 +1,8 @@
 {
   "prefix": "OEE",
   "target": {
-    "tab": "OEE"
+    "page": "OEE"
   },
-  "title": "OEE Dashboard",
   "pp": {
     "name": "Create_Random_Indicators_OEE",
     "inputs": [
@@ -33,7 +32,7 @@
       "label": "OEE",
       "scale": "percent",
       "thresholds": [
-        65,
+        60,
         85
       ],
       "hero": true,
@@ -45,7 +44,7 @@
       "label": "Availability",
       "scale": "percent",
       "thresholds": [
-        65,
+        60,
         85
       ],
       "icon": "sap-icon://time-entry-request"
@@ -55,7 +54,7 @@
       "label": "Performance",
       "scale": "percent",
       "thresholds": [
-        65,
+        60,
         85
       ],
       "icon": "sap-icon://process"
@@ -65,21 +64,11 @@
       "label": "Quality",
       "scale": "percent",
       "thresholds": [
-        65,
+        60,
         85
       ],
       "icon": "sap-icon://quality-issue"
-    },
-    {
-      "source": "pp:outScrapRate",
-      "label": "Scrap",
-      "scale": "percent",
-      "thresholds": [
-        2,
-        5
-      ],
-      "lowerIsBetter": true,
-      "icon": "sap-icon://delete"
     }
-  ]
+  ],
+  "title": "OEE Dashboard"
 }
