@@ -13,7 +13,7 @@ Most POD requirements end in one of two places: hours of clicking in the designe
 
 This skill takes neither route. **No development happens.** Everything it generates is standard POD 2.0 configuration:
 
-- only **standard SAP plugins and actions**, taken from verified exports, never invented class names;
+- only **standard SAP plugins and actions**, limited to classes verified from real exports (anything unverified is flagged);
 - standard bindings and expressions on the **POD context** (`{/workList/…}`, `{/execution/…}`, `{= … }`);
 - data from **Production Processes** you already model in DM, called through the standard Production Process action.
 
@@ -45,7 +45,7 @@ You need **Node.js** (any recent LTS). The scripts use only Node built-ins: no `
 git clone https://github.com/robertriedel/POD2_Config_Skill.git
 ```
 
-- **Joule Desktop:** add the cloned folder as a skill in your Joule Desktop skill settings.
+- **Joule Desktop:** add the cloned folder as a skill in Joule Desktop (see the Joule Desktop documentation for where skills are configured).
 - **Claude Code:** clone it straight into the skills folder, then start a new session:
 
   ```bash
@@ -92,17 +92,19 @@ The spec is the whole design:
                { "label": "Resource", "path": "/execution/operationActivity/lastSelected/resource" } ],
   "fields": [
     { "source": "pp:outOEE", "label": "OEE", "scale": "percent", "thresholds": [60, 85],
-      "hero": true, "icon": "sap-icon://performance", "caption": "= Availability × Performance × Quality" },
-    { "source": "pp:outAvailability", "label": "Availability", "scale": "percent", "thresholds": [60, 85], "icon": "sap-icon://time-entry-request" },
-    { "source": "pp:outPerformance",  "label": "Performance",  "scale": "percent", "thresholds": [60, 85], "icon": "sap-icon://process" },
-    { "source": "pp:outQuality",      "label": "Quality",      "scale": "percent", "thresholds": [60, 85], "icon": "sap-icon://quality-issue" }
+      "hero": true, "icon": "sap-icon://performance", "caption": "Calculated in the Production Process" },
+    { "source": "pp:outAvailability", "label": "Availability", "scale": "percent", "thresholds": [80, 90], "icon": "sap-icon://time-entry-request" },
+    { "source": "pp:outPerformance",  "label": "Performance",  "scale": "percent", "thresholds": [80, 95], "icon": "sap-icon://process" },
+    { "source": "pp:outQuality",      "label": "Quality",      "scale": "percent", "thresholds": [95, 99], "icon": "sap-icon://quality-issue" }
   ]
 }
 ```
 
-**Page enter.** Because the spec targets a page, the data load is wired to the page's own `pageEnter` event: `OEE_Busy` (BusyIndicator) → `OEE_LoadData` (synchronous Production Process call, output stored in the POD variable `_oee`). The tiles bind to `/_oee/…`, so they fill as soon as the page opens; until then they show "–". Refresh re-runs the same chain. A tab target uses `tabEnter` the same way.
+**Page enter.** Because the spec targets a page, the data load is wired to the page's own `pageEnter` event: `OEE_Busy` (BusyIndicator) → `OEE_LoadData` (Production Process call, output stored in the POD variable `_oee`). The tiles bind to `/_oee/…`, so they fill as soon as the page opens; until then they show "–". Refresh re-runs the same chain. A tab target uses `tabEnter` the same way.
 
 ![The OEE button in the order details header](docs/img/oee-button.png)
+
+The output is only stored when the Production Process action runs synchronously; check its call type once in the designer after import. Thresholds are set per KPI (OEE 60/85, Availability 80/90, Performance 80/95, Quality 95/99), and the POD calculates nothing itself: all four values come from the PP.
 
 Re-running with the same prefix replaces the panel in place, so changing thresholds or tiles is a spec edit.
 
@@ -119,7 +121,7 @@ Re-running with the same prefix replaces the panel in place, so changing thresho
 | `context` | Label/path pairs shown in the panel header |
 | `fields[].source` | `pp:<output>` or any POD context path |
 | `scale` | `percent` (0–100) or `fraction` (0–1, shown ×100) |
-| `thresholds` | `[low, high]` on the display scale: red below low, orange below high, green above |
+| `thresholds` | `[low, high]` on the display scale: red below low, orange below high, green at or above high |
 | `lowerIsBetter` | Inverts the colours (scrap, downtime) |
 | `type` | `number` (default), `string` or `boolean` (`trueText`/`falseText`, `trueIsBad`) |
 | `hero`, `icon`, `caption`, `unit`, `decimals` | Presentation |
