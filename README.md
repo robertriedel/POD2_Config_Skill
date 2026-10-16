@@ -171,6 +171,10 @@ docs/img/                   screenshots
 - Dialog and container targets have no verified enter event, so dashboards there load via the Refresh button.
 - The preview is a layout check with sample values, not a functional test.
 
+## License
+
+[MIT](LICENSE) © 2026 Robert Riedel. The bundled `templates/` are SAP-generated POD exports, included as reference starting points.
+
 ## Disclaimer
 
 Community project, not an official SAP product and not supported by SAP. SAP, SAP Digital Manufacturing and Joule are trademarks of SAP SE. Always review generated configuration before importing it into a productive tenant.
