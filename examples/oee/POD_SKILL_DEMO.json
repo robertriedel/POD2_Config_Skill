@@ -1,0 +1,2011 @@
+{
+  "_version": 1,
+  "id": "POD_SKILL_DEMO",
+  "description": "",
+  "favicon": "",
+  "contentDensity": "Cozy",
+  "config": {},
+  "pages": [
+    {
+      "id": "MainPage",
+      "widget": "sap.m.Page",
+      "properties": {
+        "showHeader": true,
+        "showFooter": false
+      },
+      "aggregations": {
+        "customHeader": [
+          {
+            "id": "MainToolbar",
+            "widget": "sap.m.Toolbar",
+            "aggregations": {
+              "content": [
+                {
+                  "id": "LogoImage",
+                  "widget": "sap.m.Image",
+                  "properties": {
+                    "src": "https://sapui5.hana.ondemand.com/resources/sap/ui/documentation/sdk/images/logo_sap.png",
+                    "width": "4.25rem",
+                    "height": "2rem"
+                  }
+                },
+                {
+                  "id": "TitleText",
+                  "widget": "sap.m.Title",
+                  "properties": {
+                    "text": "{= ${/pod/description} || ${/pod/id} }"
+                  }
+                },
+                {
+                  "id": "ToolbarSpacer1",
+                  "widget": "sap.m.ToolbarSpacer"
+                },
+                {
+                  "id": "Clock",
+                  "widget": "sap.dm.dme.pod2.widget.core.Clock"
+                },
+                {
+                  "id": "MessageHistory",
+                  "widget": "sap.dm.dme.pod2.widget.core.MessageHistory",
+                  "properties": {}
+                },
+                {
+                  "id": "NotificationState",
+                  "widget": "sap.dm.dme.pod2.widget.notification.NotificationStateIcon",
+                  "properties": {
+                    "size": "2rem"
+                  }
+                }
+              ]
+            }
+          }
+        ],
+        "content": [
+          {
+            "id": "OrderFilterBar",
+            "widget": "sap.dm.dme.pod2.widget.worklist.OrderFilterBar",
+            "properties": {
+              "sfcStatusCodesVisible": true,
+              "orderIdsVisible": true,
+              "executionStatusesVisible": true,
+              "orderSelectionRange": 30,
+              "orderSelectionType": "ProcessOrder",
+              "useUrlParameters": true
+            }
+          },
+          {
+            "id": "OrderListTableScrollContainer",
+            "widget": "sap.m.ScrollContainer",
+            "properties": {
+              "vertical": true,
+              "horizontal": false,
+              "height": "100%",
+              "focusable": false
+            },
+            "aggregations": {
+              "content": [
+                {
+                  "id": "OrderListTable",
+                  "widget": "sap.dm.dme.pod2.widget.worklist.OrderListTable",
+                  "properties": {
+                    "alternateRowColors": false,
+                    "autoPopinMode": true,
+                    "busyIndicatorDelay": 0,
+                    "listType": "Navigation",
+                    "mode": "MultiSelect",
+                    "growingScrollToLoad": true,
+                    "pageSize": 100,
+                    "popinLayout": "GridSmall",
+                    "printButtonVisible": true,
+                    "sticky": [
+                      "ColumnHeaders",
+                      "HeaderToolbar"
+                    ],
+                    "vAlign": "Middle",
+                    "columns": [
+                      {
+                        "field": "order",
+                        "importance": "High",
+                        "text": "{i18n>order}",
+                        "sortable": true
+                      },
+                      {
+                        "field": "orderBatchNumber",
+                        "text": "{i18n>batch}",
+                        "sortable": true
+                      },
+                      {
+                        "field": "material",
+                        "text": "{i18n>material}",
+                        "sortable": true
+                      },
+                      {
+                        "field": "materialDescription",
+                        "text": "{i18n>materialDescription}",
+                        "sortable": true
+                      },
+                      {
+                        "field": "orderQuantityPlanned",
+                        "text": "{i18n>orderQuantity}"
+                      },
+                      {
+                        "field": "orderExecutionStatus",
+                        "text": "{i18n>orderStatus}",
+                        "hAlign": "Center",
+                        "sortable": true
+                      },
+                      {
+                        "field": "orderPlannedDateRange",
+                        "text": "{i18n>plannedDateRange}",
+                        "hAlign": "End"
+                      },
+                      {
+                        "field": "sfcStatusDescription",
+                        "text": "{i18n>sfcStatus}",
+                        "hAlign": "Center",
+                        "sortable": true
+                      },
+                      {
+                        "field": "sfc",
+                        "text": "{i18n>sfc}",
+                        "sortable": true
+                      },
+                      {
+                        "field": "sfcQuantity",
+                        "text": "{i18n>sfcQuantity}",
+                        "sortable": true
+                      },
+                      {
+                        "field": "sfcBatchNumber",
+                        "text": "{i18n>sfcDefaultBatch}",
+                        "sortable": true
+                      }
+                    ],
+                    "defaultSorting": [
+                      {
+                        "sortBy": "order",
+                        "descending": false
+                      },
+                      {
+                        "sortBy": "orderBatchNumber",
+                        "descending": false
+                      },
+                      {
+                        "sortBy": "material",
+                        "descending": false
+                      },
+                      {
+                        "sortBy": "materialDescription",
+                        "descending": false
+                      },
+                      {
+                        "sortBy": "orderQuantityCompleted",
+                        "descending": false
+                      }
+                    ]
+                  },
+                  "events": {
+                    "itemPress": [
+                      {
+                        "id": "NavigateToPage",
+                        "action": "sap.dm.dme.pod2.action.page.NavigateToPage",
+                        "properties": {
+                          "page": "OrderDetails"
+                        }
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "OrderDetails",
+      "widget": "sap.m.Page",
+      "properties": {
+        "showHeader": true,
+        "showFooter": false
+      },
+      "aggregations": {
+        "customHeader": [
+          {
+            "id": "DetailsToolbar",
+            "widget": "sap.m.Toolbar",
+            "aggregations": {
+              "content": [
+                {
+                  "id": "BackButton",
+                  "widget": "sap.m.Button",
+                  "properties": {
+                    "type": "Transparent",
+                    "icon": "sap-icon://nav-back",
+                    "tooltip": "{i18n>back}",
+                    "width": "2rem",
+                    "height": "2rem"
+                  },
+                  "events": {
+                    "press": [
+                      {
+                        "id": "NavigateBackAction",
+                        "action": "sap.dm.dme.pod2.action.page.NavigateBack"
+                      },
+                      {
+                        "id": "ClearWorkListSelection",
+                        "action": "sap.dm.dme.pod2.action.worklist.ClearWorkListSelection"
+                      }
+                    ]
+                  }
+                },
+                {
+                  "id": "LogoImage2",
+                  "widget": "sap.m.Image",
+                  "properties": {
+                    "src": "https://sapui5.hana.ondemand.com/resources/sap/ui/documentation/sdk/images/logo_sap.png",
+                    "width": "4.25rem",
+                    "height": "2rem"
+                  }
+                },
+                {
+                  "id": "OrderDetailsTitle",
+                  "widget": "sap.m.Text",
+                  "properties": {
+                    "text": "{i18n>order} - {/workList/lastSelected/order} / {i18n>sfc} - {/workList/lastSelected/sfc}",
+                    "fontSize": "1.5rem",
+                    "fontWeight": "bold"
+                  }
+                },
+                {
+                  "id": "OrderDetailsBannerSpacer",
+                  "widget": "sap.m.ToolbarSpacer"
+                },
+                {
+                  "id": "CreateGoodsReceiptButton",
+                  "widget": "sap.m.Button",
+                  "properties": {
+                    "text": "{i18n>create} {i18n>goodsReceipt}",
+                    "type": "Transparent"
+                  },
+                  "events": {
+                    "press": [
+                      {
+                        "id": "NavigateToPage",
+                        "action": "sap.dm.dme.pod2.action.page.NavigateToPage",
+                        "properties": {
+                          "page": "GoodsReceipt"
+                        }
+                      }
+                    ]
+                  }
+                },
+                {
+                  "id": "OrderDetailsBannerMenuButton",
+                  "widget": "sap.m.MenuButton",
+                  "properties": {
+                    "text": "{i18n>batchHandling}",
+                    "menuPosition": "BeginBottom"
+                  },
+                  "aggregations": {
+                    "menuItems": [
+                      {
+                        "id": "CreateBatchMenuItem",
+                        "widget": "sap.m.MenuItem",
+                        "properties": {
+                          "text": "{i18n>create} {i18n>batch}"
+                        },
+                        "events": {
+                          "select": [
+                            {
+                              "id": "CreateBatch",
+                              "action": "sap.dm.dme.pod2.action.batch.CreateBatch"
+                            }
+                          ]
+                        }
+                      },
+                      {
+                        "id": "UpdateBatchCharacteristicsBannerMenuItem",
+                        "widget": "sap.m.MenuItem",
+                        "properties": {
+                          "text": "{i18n>updateBatchCharacteristics}"
+                        },
+                        "events": {
+                          "select": [
+                            {
+                              "id": "NavigateToPage",
+                              "action": "sap.dm.dme.pod2.action.page.NavigateToPage",
+                              "properties": {
+                                "page": "UpdateBatchCharacteristics"
+                              }
+                            }
+                          ]
+                        }
+                      }
+                    ]
+                  }
+                },
+                {
+                  "id": "Clock2",
+                  "widget": "sap.dm.dme.pod2.widget.core.Clock"
+                },
+                {
+                  "id": "MessageHistory2",
+                  "widget": "sap.dm.dme.pod2.widget.core.MessageHistory",
+                  "properties": {}
+                },
+                {
+                  "id": "NotificationState2",
+                  "widget": "sap.dm.dme.pod2.widget.notification.NotificationStateIcon",
+                  "properties": {
+                    "size": "2rem"
+                  }
+                }
+              ]
+            }
+          }
+        ],
+        "content": [
+          {
+            "id": "OrderDetailsHeader",
+            "widget": "sap.m.HBox",
+            "properties": {
+              "paddingBegin": "Small",
+              "paddingEnd": "Small",
+              "paddingTop": "Small",
+              "paddingBottom": "Small",
+              "wrap": "Wrap",
+              "fitContainer": false,
+              "gap": "2rem",
+              "renderType": "Bare",
+              "justifyContent": "Start",
+              "displayInline": false,
+              "minHeight": "",
+              "backgroundColor": "",
+              "backgroundDesign": "Solid"
+            },
+            "aggregations": {
+              "items": [
+                {
+                  "id": "MaterialImage",
+                  "widget": "sap.dm.dme.pod2.widget.order.MaterialImage",
+                  "properties": {
+                    "height": "5rem"
+                  }
+                },
+                {
+                  "id": "BatchBox",
+                  "widget": "sap.m.VBox",
+                  "properties": {
+                    "alignItems": "Start"
+                  },
+                  "aggregations": {
+                    "items": [
+                      {
+                        "id": "BatchLabel",
+                        "widget": "sap.m.Label",
+                        "properties": {
+                          "text": "{i18n>batch}",
+                          "showColon": true,
+                          "fontSize": "1rem",
+                          "fontWeight": "bold"
+                        }
+                      },
+                      {
+                        "id": "BatchNumber",
+                        "widget": "sap.m.Text",
+                        "properties": {
+                          "text": "{/workList/lastSelected/orderBatchNumber}",
+                          "fontSize": "1rem"
+                        }
+                      }
+                    ]
+                  }
+                },
+                {
+                  "id": "WorkCenterBox",
+                  "widget": "sap.m.VBox",
+                  "properties": {},
+                  "aggregations": {
+                    "items": [
+                      {
+                        "id": "WorkCenterLabel",
+                        "widget": "sap.m.Label",
+                        "properties": {
+                          "text": "{i18n>operationActivity}",
+                          "showColon": true,
+                          "fontSize": "1rem",
+                          "fontWeight": "bold"
+                        }
+                      },
+                      {
+                        "id": "WorkCenterText",
+                        "widget": "sap.m.Text",
+                        "properties": {
+                          "text": "{= ${/execution/operationActivity/lastSelected/description} ? ${/execution/operationActivity/lastSelected/operationActivity} + ' - ' + ${/execution/operationActivity/lastSelected/description} : ${/execution/operationActivity/lastSelected/operationActivity} }",
+                          "fontSize": "1rem"
+                        }
+                      }
+                    ]
+                  }
+                },
+                {
+                  "id": "MaterialBox",
+                  "widget": "sap.m.VBox",
+                  "properties": {},
+                  "aggregations": {
+                    "items": [
+                      {
+                        "id": "MaterialLabel",
+                        "widget": "sap.m.Label",
+                        "properties": {
+                          "text": "{i18n>material}",
+                          "showColon": true,
+                          "fontSize": "1rem",
+                          "fontWeight": "bold"
+                        }
+                      },
+                      {
+                        "id": "MaterialText",
+                        "widget": "sap.m.Text",
+                        "properties": {
+                          "text": "{/workList/lastSelected/material} / {/workList/lastSelected/materialVersion}",
+                          "fontSize": "1rem"
+                        }
+                      }
+                    ]
+                  }
+                },
+                {
+                  "id": "MaterialDescriptionBox",
+                  "widget": "sap.m.VBox",
+                  "properties": {},
+                  "aggregations": {
+                    "items": [
+                      {
+                        "id": "MaterialDescriptionLabel",
+                        "widget": "sap.m.Label",
+                        "properties": {
+                          "text": "{i18n>materialDescription}",
+                          "showColon": true,
+                          "fontSize": "1rem",
+                          "fontWeight": "bold"
+                        }
+                      },
+                      {
+                        "id": "MaterialDescriptionText",
+                        "widget": "sap.m.Text",
+                        "properties": {
+                          "text": "{/workList/lastSelected/materialDescription}",
+                          "fontSize": "1rem"
+                        }
+                      }
+                    ]
+                  }
+                },
+                {
+                  "id": "PlannedDateRangeBox",
+                  "widget": "sap.m.VBox",
+                  "properties": {},
+                  "aggregations": {
+                    "items": [
+                      {
+                        "id": "PlannedDateRangeLabel",
+                        "widget": "sap.m.Label",
+                        "properties": {
+                          "text": "{i18n>plannedDate}",
+                          "showColon": true,
+                          "fontSize": "1rem",
+                          "fontWeight": "bold"
+                        }
+                      },
+                      {
+                        "id": "PlannedDateRangeText",
+                        "widget": "sap.dm.dme.pod2.widget.core.DateTimeText",
+                        "properties": {
+                          "date1": "{/workList/lastSelected/orderPlannedStartDate}",
+                          "date2": "{/workList/lastSelected/orderPlannedCompleteDate}",
+                          "displayFormat": "DateRange",
+                          "emptyIndicatorMode": "On",
+                          "fontSize": "1rem"
+                        }
+                      }
+                    ]
+                  }
+                },
+                {
+                  "id": "WorkInstructionHeaderBox",
+                  "widget": "sap.m.VBox",
+                  "properties": {
+                    "width": "12.5rem"
+                  },
+                  "aggregations": {
+                    "items": [
+                      {
+                        "id": "WorkInstructionHeaderLabel",
+                        "widget": "sap.m.Label",
+                        "properties": {
+                          "text": "{i18n>workInstructions}",
+                          "showColon": true,
+                          "fontSize": "1rem",
+                          "fontWeight": "bold"
+                        }
+                      },
+                      {
+                        "id": "WorkInstructionHeaderText",
+                        "widget": "sap.dm.dme.pod2.widget.workinstruction.WorkInstructionHeaderText",
+                        "properties": {
+                          "text": "",
+                          "maxCharacters": 100,
+                          "overflowMode": "Popover",
+                          "emptyIndicatorMode": "On"
+                        }
+                      }
+                    ]
+                  }
+                },
+                {
+                  "id": "OrderHeaderBox",
+                  "widget": "sap.m.VBox",
+                  "properties": {
+                    "width": "12.5rem"
+                  },
+                  "aggregations": {
+                    "items": [
+                      {
+                        "id": "OrderHeaderLabel",
+                        "widget": "sap.m.Label",
+                        "properties": {
+                          "text": "{i18n>headerInstructions}",
+                          "showColon": true,
+                          "fontSize": "1rem",
+                          "fontWeight": "bold"
+                        }
+                      },
+                      {
+                        "id": "OrderHeaderText",
+                        "widget": "sap.dm.dme.pod2.widget.order.OrderHeaderText",
+                        "properties": {
+                          "maxCharacters": 100,
+                          "emptyIndicatorMode": "On",
+                          "overflowMode": "Popover"
+                        }
+                      }
+                    ]
+                  }
+                },
+                {
+                  "id": "GoodsReceiptQuantityBox",
+                  "widget": "sap.m.VBox",
+                  "properties": {
+                    "visible": true,
+                    "width": "12.5rem"
+                  },
+                  "aggregations": {
+                    "items": [
+                      {
+                        "id": "GoodsReceiptQuantityLabel",
+                        "widget": "sap.m.Label",
+                        "properties": {
+                          "text": "{i18n>goodsReceipt} {i18n>quantity}",
+                          "showColon": true,
+                          "fontSize": "1rem",
+                          "fontWeight": "bold"
+                        }
+                      },
+                      {
+                        "id": "GoodsReceiptQuantityProgress",
+                        "widget": "sap.dm.dme.pod2.widget.order.GoodsReceiptQuantityProgress",
+                        "properties": {
+                          "showValue": true,
+                          "state": "None",
+                          "displayOnly": false
+                        }
+                      }
+                    ]
+                  }
+                },
+                {
+                  "id": "SFCQuantityBox",
+                  "widget": "sap.m.VBox",
+                  "properties": {
+                    "visible": true,
+                    "wrap": "NoWrap",
+                    "width": "12.5rem"
+                  },
+                  "aggregations": {
+                    "items": [
+                      {
+                        "id": "SFCQuantityLabel",
+                        "widget": "sap.m.Label",
+                        "properties": {
+                          "text": "{i18n>sfcQuantity}",
+                          "showColon": true,
+                          "fontSize": "1rem",
+                          "fontWeight": "bold"
+                        }
+                      },
+                      {
+                        "id": "SFCQuantityProgress",
+                        "widget": "sap.dm.dme.pod2.widget.order.SFCQuantityProgress",
+                        "properties": {}
+                      }
+                    ]
+                  }
+                },
+                {
+                  "id": "DefaultBatchBox",
+                  "widget": "sap.m.VBox",
+                  "properties": {
+                    "visible": true
+                  },
+                  "aggregations": {
+                    "items": [
+                      {
+                        "id": "DefaultBatchLabel",
+                        "widget": "sap.m.Label",
+                        "properties": {
+                          "text": "{i18n>OrderListTableWidget.column.sfcDefaultBatch}",
+                          "showColon": true,
+                          "fontSize": "1rem",
+                          "fontWeight": "bold"
+                        }
+                      },
+                      {
+                        "id": "DefaultBatchInnerBox",
+                        "widget": "sap.m.HBox",
+                        "properties": {
+                          "justifyContent": "SpaceBetween",
+                          "gap": "1rem",
+                          "alignContent": "Start",
+                          "alignItems": "Center"
+                        },
+                        "aggregations": {
+                          "items": [
+                            {
+                              "id": "DefaultBatchNumber",
+                              "widget": "sap.m.Text",
+                              "properties": {
+                                "text": "{/workList/lastSelected/sfcBatchNumber}",
+                                "fontSize": "1rem"
+                              }
+                            },
+                            {
+                              "id": "DefaultBatchChangeButton",
+                              "widget": "sap.m.Button",
+                              "properties": {
+                                "text": "{= ${/workList/lastSelected/sfcBatchNumber} ? ${i18n>change} : ${i18n>assign} }",
+                                "type": "Ghost"
+                              },
+                              "events": {
+                                "press": [
+                                  {
+                                    "id": "UpdateSfcDefaultBatch",
+                                    "action": "sap.dm.dme.pod2.action.sfc.UpdateSfcDefaultBatch"
+                                  }
+                                ]
+                              }
+                            }
+                          ]
+                        }
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          },
+          {
+            "id": "OrderDetailsContent",
+            "widget": "sap.ui.layout.Splitter",
+            "properties": {
+              "height": null
+            },
+            "aggregations": {
+              "contentAreas": [
+                {
+                  "id": "PhaseList",
+                  "widget": "sap.dm.dme.pod2.widget.worklist.PhaseTable",
+                  "properties": {
+                    "autoSelect": true,
+                    "autoPopinMode": true,
+                    "popinLayout": "GridSmall",
+                    "mode": "SingleSelectMaster",
+                    "columns": [
+                      {
+                        "field": "PhaseID",
+                        "importance": "High",
+                        "text": "{i18n>PhaseTableWidget.column.phaseId}"
+                      },
+                      {
+                        "field": "Status",
+                        "text": "{i18n>PhaseTableWidget.column.phaseStatus}",
+                        "hAlign": "Center"
+                      },
+                      {
+                        "field": "Action",
+                        "text": "{i18n>PhaseTableWidget.column.phaseAction}",
+                        "hAlign": "Center"
+                      }
+                    ]
+                  },
+                  "events": {
+                    "startPhase": [
+                      {
+                        "id": "StartPhase",
+                        "action": "sap.dm.dme.pod2.action.phase.StartPhase"
+                      }
+                    ],
+                    "completePhase": [
+                      {
+                        "id": "CompletePhase",
+                        "action": "sap.dm.dme.pod2.action.phase.CompletePhase",
+                        "properties": {
+                          "allowConfirmation": true
+                        }
+                      }
+                    ]
+                  },
+                  "layoutData": {
+                    "size": "25%",
+                    "minSize": 50
+                  }
+                },
+                {
+                  "id": "SFCDetailsTabBarWrapper",
+                  "widget": "sap.m.VBox",
+                  "properties": {
+                    "height": "100%"
+                  },
+                  "aggregations": {
+                    "items": [
+                      {
+                        "id": "OrderDetailsContentTabBar",
+                        "widget": "sap.m.IconTabBar",
+                        "properties": {
+                          "headerMode": "Standard",
+                          "expandable": false,
+                          "height": "100%"
+                        },
+                        "layoutData": {
+                          "size": "75%"
+                        },
+                        "aggregations": {
+                          "items": [
+                            {
+                              "id": "PhaseDetailsTab",
+                              "widget": "sap.m.IconTabFilter",
+                              "properties": {
+                                "text": "{i18n>template.tab.phaseDetails}",
+                                "icon": "sap-icon://hint",
+                                "design": "Horizontal"
+                              },
+                              "aggregations": {
+                                "content": [
+                                  {
+                                    "id": "PhaseDetails-HBox",
+                                    "widget": "sap.m.HBox",
+                                    "properties": {
+                                      "alignContent": "SpaceBetween",
+                                      "justifyContent": "Start",
+                                      "displayInline": true,
+                                      "gap": "1rem",
+                                      "width": "100%",
+                                      "paddingBottom": "Tiny",
+                                      "wrap": "Wrap"
+                                    },
+                                    "aggregations": {
+                                      "items": [
+                                        {
+                                          "id": "PhaseDetails-VBox1",
+                                          "widget": "sap.m.VBox",
+                                          "properties": {
+                                            "justifyContent": "Start",
+                                            "alignContent": "Start",
+                                            "gap": "1rem",
+                                            "width": null,
+                                            "paddingBegin": "None"
+                                          },
+                                          "aggregations": {
+                                            "items": [
+                                              {
+                                                "id": "PhaseDetails-PhaseId",
+                                                "widget": "sap.m.VBox",
+                                                "properties": {
+                                                  "justifyContent": "Start",
+                                                  "alignContent": "Start",
+                                                  "gap": "0.25rem"
+                                                },
+                                                "aggregations": {
+                                                  "items": [
+                                                    {
+                                                      "id": "PhaseDetails-PhaseId-Label",
+                                                      "widget": "sap.m.Label",
+                                                      "properties": {
+                                                        "text": "{i18n>template.label.phaseDetails.phaseId}",
+                                                        "showColon": true,
+                                                        "fontWeight": "bold"
+                                                      }
+                                                    },
+                                                    {
+                                                      "id": "PhaseDetails-PhaseId-Text",
+                                                      "widget": "sap.m.Text",
+                                                      "properties": {
+                                                        "text": "{/execution/operationActivity/lastSelected/operationActivity}"
+                                                      }
+                                                    }
+                                                  ]
+                                                }
+                                              },
+                                              {
+                                                "id": "PhaseDetails-Description",
+                                                "widget": "sap.m.VBox",
+                                                "properties": {
+                                                  "gap": "0.25rem"
+                                                },
+                                                "aggregations": {
+                                                  "items": [
+                                                    {
+                                                      "id": "PhaseDetails-Description-Label",
+                                                      "widget": "sap.m.Label",
+                                                      "properties": {
+                                                        "text": "{i18n>template.label.phaseDetails.phaseDescription}",
+                                                        "showColon": true,
+                                                        "fontWeight": "bold"
+                                                      }
+                                                    },
+                                                    {
+                                                      "id": "PhaseDetails-Description-Text",
+                                                      "widget": "sap.m.Text",
+                                                      "properties": {
+                                                        "text": "{/execution/operationActivity/lastSelected/description}"
+                                                      }
+                                                    }
+                                                  ]
+                                                }
+                                              },
+                                              {
+                                                "id": "PhaseDetails-WorkCenter",
+                                                "widget": "sap.m.VBox",
+                                                "properties": {
+                                                  "gap": "0.25rem"
+                                                },
+                                                "aggregations": {
+                                                  "items": [
+                                                    {
+                                                      "id": "PhaseDetails-WorkCenter-Label",
+                                                      "widget": "sap.m.Label",
+                                                      "properties": {
+                                                        "text": "{i18n>template.label.phaseDetails.workCenter}",
+                                                        "showColon": true,
+                                                        "fontWeight": "bold"
+                                                      }
+                                                    },
+                                                    {
+                                                      "id": "PhaseDetails-WorkCenter-Text",
+                                                      "widget": "sap.m.Text",
+                                                      "properties": {
+                                                        "text": "{/execution/operationActivity/lastSelected/workCenter}"
+                                                      }
+                                                    }
+                                                  ]
+                                                }
+                                              },
+                                              {
+                                                "id": "PhaseDetails-Resource",
+                                                "widget": "sap.m.VBox",
+                                                "properties": {
+                                                  "gap": "0.25rem"
+                                                },
+                                                "aggregations": {
+                                                  "items": [
+                                                    {
+                                                      "id": "PhaseDetails-Resource-Label",
+                                                      "widget": "sap.m.Label",
+                                                      "properties": {
+                                                        "text": "{i18n>template.label.phaseDetails.resource}",
+                                                        "showColon": true,
+                                                        "fontWeight": "bold"
+                                                      }
+                                                    },
+                                                    {
+                                                      "id": "PhaseDetails-Resource-Text",
+                                                      "widget": "sap.m.Text",
+                                                      "properties": {
+                                                        "text": "{/execution/operationActivity/lastSelected/resource}"
+                                                      }
+                                                    }
+                                                  ]
+                                                }
+                                              }
+                                            ]
+                                          },
+                                          "layoutData": {
+                                            "growFactor": 1
+                                          }
+                                        },
+                                        {
+                                          "id": "PhaseDetails-VBox2",
+                                          "widget": "sap.m.VBox",
+                                          "properties": {
+                                            "justifyContent": "Start",
+                                            "alignContent": "Start",
+                                            "gap": "1rem",
+                                            "width": null
+                                          },
+                                          "aggregations": {
+                                            "items": [
+                                              {
+                                                "id": "PhaseDetails-ScheduledStart",
+                                                "widget": "sap.m.VBox",
+                                                "properties": {
+                                                  "gap": "0.25rem"
+                                                },
+                                                "aggregations": {
+                                                  "items": [
+                                                    {
+                                                      "id": "PhaseDetails-ScheduledStart-Label",
+                                                      "widget": "sap.m.Label",
+                                                      "properties": {
+                                                        "text": "{i18n>template.label.phaseDetails.scheduledStartDate}",
+                                                        "showColon": true,
+                                                        "fontWeight": "bold"
+                                                      }
+                                                    },
+                                                    {
+                                                      "id": "PhaseDetails-ScheduledStart-DateTimeText",
+                                                      "widget": "sap.dm.dme.pod2.widget.core.DateTimeText",
+                                                      "properties": {
+                                                        "date1": "{/execution/operationActivity/lastSelected/scheduleStartDate}",
+                                                        "displayFormat": "DateTime",
+                                                        "emptyIndicatorMode": "On"
+                                                      }
+                                                    }
+                                                  ]
+                                                }
+                                              },
+                                              {
+                                                "id": "PhaseDetails-ScheduledEnd",
+                                                "widget": "sap.m.VBox",
+                                                "properties": {
+                                                  "gap": "0.25rem"
+                                                },
+                                                "aggregations": {
+                                                  "items": [
+                                                    {
+                                                      "id": "PhaseDetails-ScheduledEnd-Label",
+                                                      "widget": "sap.m.Label",
+                                                      "properties": {
+                                                        "text": "{i18n>template.label.phaseDetails.scheduledEndDate}",
+                                                        "showColon": true,
+                                                        "fontWeight": "bold"
+                                                      }
+                                                    },
+                                                    {
+                                                      "id": "PhaseDetails-ScheduledEnd-DateTimeText",
+                                                      "widget": "sap.dm.dme.pod2.widget.core.DateTimeText",
+                                                      "properties": {
+                                                        "date1": "{/execution/operationActivity/lastSelected/scheduleEndDate}",
+                                                        "displayFormat": "DateTime",
+                                                        "emptyIndicatorMode": "On"
+                                                      }
+                                                    }
+                                                  ]
+                                                }
+                                              },
+                                              {
+                                                "id": "PhaseDetails-Status",
+                                                "widget": "sap.m.VBox",
+                                                "properties": {
+                                                  "gap": "0.25rem"
+                                                },
+                                                "aggregations": {
+                                                  "items": [
+                                                    {
+                                                      "id": "PhaseDetails-Status-Label",
+                                                      "widget": "sap.m.Label",
+                                                      "properties": {
+                                                        "text": "{i18n>template.label.phaseDetails.status}",
+                                                        "showColon": true,
+                                                        "fontWeight": "bold"
+                                                      }
+                                                    },
+                                                    {
+                                                      "id": "PhaseDetails-Status-Value",
+                                                      "widget": "sap.dm.dme.pod2.widget.worklist.OperationActivityStatus",
+                                                      "properties": {
+                                                        "bindPath": "{/execution/operationActivity/selected/0}",
+                                                        "showIcon": true,
+                                                        "showText": true
+                                                      }
+                                                    }
+                                                  ]
+                                                }
+                                              }
+                                            ]
+                                          },
+                                          "layoutData": {
+                                            "growFactor": 1
+                                          }
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  {
+                                    "id": "ChangeResourceButton",
+                                    "widget": "sap.m.Button",
+                                    "properties": {
+                                      "text": "{i18n>UpdateAlternateResourceAction.ui.buttons.changeResource}",
+                                      "type": "Ghost"
+                                    },
+                                    "events": {
+                                      "press": [
+                                        {
+                                          "id": "UpdateAlternateResource",
+                                          "action": "sap.dm.dme.pod2.action.order.UpdateAlternateResourceAction"
+                                        }
+                                      ]
+                                    }
+                                  }
+                                ]
+                              }
+                            },
+                            {
+                              "id": "WorkInstructionsTab",
+                              "widget": "sap.m.IconTabFilter",
+                              "properties": {
+                                "text": "{i18n>workInstructions}",
+                                "icon": "sap-icon://activities",
+                                "design": "Horizontal"
+                              },
+                              "aggregations": {
+                                "content": [
+                                  {
+                                    "id": "WorkInstructionTable",
+                                    "widget": "sap.dm.dme.pod2.widget.workinstruction.WorkInstructionTable",
+                                    "properties": {
+                                      "alternateRowColors": true,
+                                      "autoPopinMode": true,
+                                      "fixedLayout": true,
+                                      "popinLayout": "GridSmall",
+                                      "showNoData": false,
+                                      "mode": "SingleSelectMaster",
+                                      "listType": "Navigation",
+                                      "headerText": "{i18n>WorkInstructionTableWidget.headerText} ({/workInstruction/list/length})",
+                                      "columns": [
+                                        {
+                                          "field": "workInstructionVersion",
+                                          "importance": "High",
+                                          "text": "{i18n>WorkInstructionTableWidget.column.workInstructionWithVersion}",
+                                          "width": "20%"
+                                        },
+                                        {
+                                          "field": "description",
+                                          "text": "{i18n>description}",
+                                          "width": "40%"
+                                        },
+                                        {
+                                          "field": "currentVersion",
+                                          "text": "{i18n>currentVersion}",
+                                          "width": "10%",
+                                          "hAlign": "Center"
+                                        },
+                                        {
+                                          "field": "operationActivityStepId",
+                                          "text": "{i18n>WorkInstructionTableWidget.column.operationActivityWithStep}",
+                                          "width": "20%"
+                                        },
+                                        {
+                                          "field": "status",
+                                          "text": "{i18n>status}",
+                                          "width": "10%"
+                                        }
+                                      ]
+                                    },
+                                    "events": {
+                                      "itemPress": [
+                                        {
+                                          "id": "ShowWorkInstructionDialog",
+                                          "action": "sap.dm.dme.pod2.action.dialog.ShowDialog",
+                                          "properties": {
+                                            "dialog": "WorkInstructionDialog"
+                                          }
+                                        }
+                                      ]
+                                    }
+                                  }
+                                ]
+                              }
+                            },
+                            {
+                              "id": "QuantityConfirmationTab",
+                              "widget": "sap.m.IconTabFilter",
+                              "properties": {
+                                "text": "{i18n>quantityConfirmation}",
+                                "icon": "sap-icon://measurement-document",
+                                "iconColor": "Default",
+                                "showAll": false,
+                                "design": "Horizontal"
+                              },
+                              "aggregations": {
+                                "content": [
+                                  {
+                                    "id": "ReportedQuantityBox",
+                                    "widget": "sap.m.VBox",
+                                    "properties": {
+                                      "paddingTop": "None",
+                                      "gap": "1.25rem"
+                                    },
+                                    "aggregations": {
+                                      "items": [
+                                        {
+                                          "id": "ReportedQuantitySummary",
+                                          "widget": "sap.dm.dme.pod2.widget.quantityconfirmation.ReportedQuantitySummary",
+                                          "properties": {
+                                            "busyIndicatorDelay": 0,
+                                            "headerText": "{i18n>ReportedQuantitySummaryWidget.table.title}",
+                                            "columns": [
+                                              {
+                                                "field": "totalYieldQuantity",
+                                                "text": "{i18n>ReportedQuantitySummaryWidget.table.column.totalYield}",
+                                                "hAlign": "End"
+                                              },
+                                              {
+                                                "field": "totalScrapQuantity",
+                                                "text": "{i18n>ReportedQuantitySummaryWidget.table.column.totalScrap}",
+                                                "hAlign": "End"
+                                              },
+                                              {
+                                                "field": "reportQuantity",
+                                                "text": "{i18n>ReportedQuantitySummaryWidget.table.column.reportQuantityButton}",
+                                                "headerText": "",
+                                                "hAlign": "Center"
+                                              }
+                                            ]
+                                          },
+                                          "events": {
+                                            "reportQuantity": [
+                                              {
+                                                "id": "ReportQuantity",
+                                                "action": "sap.dm.dme.pod2.action.quantityconfirmation.ReportQuantity"
+                                              }
+                                            ]
+                                          }
+                                        },
+                                        {
+                                          "id": "ReportedQuantityTable",
+                                          "widget": "sap.dm.dme.pod2.widget.quantityconfirmation.ReportedQuantityTable",
+                                          "properties": {
+                                            "alternateRowColors": false,
+                                            "autoPopinMode": true,
+                                            "busyIndicatorDelay": 0,
+                                            "fixedLayout": true,
+                                            "popinLayout": "GridSmall",
+                                            "showNoData": true,
+                                            "columns": [
+                                              {
+                                                "field": "resource",
+                                                "importance": "High",
+                                                "text": "{i18n>ReportedQuantityTableWidget.table.column.resource}"
+                                              },
+                                              {
+                                                "field": "yieldQuantity",
+                                                "text": "{i18n>ReportedQuantityTableWidget.table.column.yield}",
+                                                "hAlign": "End"
+                                              },
+                                              {
+                                                "field": "scrapQuantity",
+                                                "text": "{i18n>ReportedQuantityTableWidget.table.column.scrap}",
+                                                "hAlign": "End"
+                                              },
+                                              {
+                                                "field": "scrapReasonCode",
+                                                "text": "{i18n>ReportedQuantityTableWidget.table.column.reasonCode}",
+                                                "width": "170px"
+                                              },
+                                              {
+                                                "field": "userId",
+                                                "text": "{i18n>ReportedQuantityTableWidget.table.column.postedBy}"
+                                              },
+                                              {
+                                                "field": "postingDate",
+                                                "text": "{i18n>ReportedQuantityTableWidget.table.column.postingDate}",
+                                                "hAlign": "End"
+                                              },
+                                              {
+                                                "field": "createdDate",
+                                                "text": "{i18n>ReportedQuantityTableWidget.table.column.createdOn}",
+                                                "hAlign": "End"
+                                              },
+                                              {
+                                                "field": "status",
+                                                "text": "{i18n>ReportedQuantityTableWidget.table.column.status}"
+                                              }
+                                            ]
+                                          }
+                                        }
+                                      ]
+                                    }
+                                  }
+                                ]
+                              }
+                            },
+                            {
+                              "id": "DataCollectionTab",
+                              "widget": "sap.m.IconTabFilter",
+                              "properties": {
+                                "icon": "sap-icon://measuring-point",
+                                "iconColor": "Default",
+                                "text": "{i18n>dataCollection}",
+                                "design": "Horizontal"
+                              },
+                              "aggregations": {
+                                "content": [
+                                  {
+                                    "id": "ScrollContainer1",
+                                    "widget": "sap.m.ScrollContainer",
+                                    "properties": {
+                                      "vertical": true,
+                                      "height": "100%"
+                                    },
+                                    "aggregations": {
+                                      "content": [
+                                        {
+                                          "id": "DataCollectionGroupTable",
+                                          "widget": "sap.dm.dme.pod2.widget.datacollection.DataCollectionGroupTable",
+                                          "properties": {
+                                            "alternateRowColors": true,
+                                            "autoPopinMode": true,
+                                            "fixedLayout": true,
+                                            "popinLayout": "GridSmall",
+                                            "showNoData": false,
+                                            "mode": "SingleSelectMaster",
+                                            "listType": "Navigation",
+                                            "headerText": "{i18n>dataCollectionGroups} ({/dataCollection/groups/list/length})",
+                                            "sticky": [
+                                              "ColumnHeaders",
+                                              "HeaderToolbar"
+                                            ],
+                                            "columns": [
+                                              {
+                                                "field": "version",
+                                                "importance": "High",
+                                                "text": "{i18n>DataCollectionGroupTableWidget.column.groupAndVersion}",
+                                                "width": "20%"
+                                              },
+                                              {
+                                                "field": "description",
+                                                "text": "{i18n>description}",
+                                                "width": "60%"
+                                              },
+                                              {
+                                                "field": "progressIndicator",
+                                                "text": "{i18n>DataCollectionGroupTableWidget.column.parameters}",
+                                                "width": "20%"
+                                              }
+                                            ]
+                                          },
+                                          "events": {
+                                            "itemPress": [
+                                              {
+                                                "id": "ShowDataCollectionDialogAction",
+                                                "action": "sap.dm.dme.pod2.action.dialog.ShowDialog",
+                                                "properties": {
+                                                  "dialog": "DataCollectionDialog"
+                                                }
+                                              }
+                                            ]
+                                          }
+                                        }
+                                      ]
+                                    }
+                                  }
+                                ]
+                              }
+                            },
+                            {
+                              "id": "ActivityConfirmationTab",
+                              "widget": "sap.m.IconTabFilter",
+                              "properties": {
+                                "text": "{i18n>template.tab.activityConfirmation}",
+                                "icon": "sap-icon://activity-individual",
+                                "design": "Horizontal"
+                              },
+                              "aggregations": {
+                                "content": [
+                                  {
+                                    "id": "ActivityConfirmationTable",
+                                    "widget": "sap.dm.dme.pod2.widget.activityconfirmation.ActivityConfirmationTable",
+                                    "properties": {
+                                      "alternateRowColors": true,
+                                      "autoPopinMode": true,
+                                      "fixedLayout": true,
+                                      "popinLayout": "GridSmall",
+                                      "showNoData": false,
+                                      "mode": "SingleSelectMaster",
+                                      "listType": "Active",
+                                      "columns": [
+                                        {
+                                          "field": "parameter",
+                                          "importance": "High",
+                                          "text": "{i18n>ActivityConfirmationTableWidget.columns.parameter}",
+                                          "width": "40%"
+                                        },
+                                        {
+                                          "field": "standardValue",
+                                          "text": "{i18n>ActivityConfirmationTableWidget.columns.standardValue}",
+                                          "width": "20%"
+                                        },
+                                        {
+                                          "field": "reported",
+                                          "text": "{i18n>ActivityConfirmationTableWidget.columns.reported}",
+                                          "width": "20%"
+                                        },
+                                        {
+                                          "field": "posting",
+                                          "text": "{i18n>ActivityConfirmationTableWidget.columns.posting}",
+                                          "width": "20%"
+                                        }
+                                      ]
+                                    }
+                                  }
+                                ]
+                              }
+                            },
+                            {
+                              "id": "qualityInspectionTab",
+                              "widget": "sap.m.IconTabFilter",
+                              "properties": {
+                                "text": "{i18n>template.tab.qualityInspection}",
+                                "icon": "sap-icon://quality-issue",
+                                "design": "Horizontal"
+                              },
+                              "aggregations": {
+                                "content": [
+                                  {
+                                    "id": "QualityInspectionCharacteristicTable1",
+                                    "widget": "sap.dm.dme.pod2.qualityinspection.widget.QualityInspectionCharacteristicTable",
+                                    "properties": {
+                                      "mode": "SingleSelectMaster",
+                                      "listType": "Navigation",
+                                      "dialogResizable": true,
+                                      "isShowSubmitButton": true,
+                                      "isShowOriginalValue": true
+                                    }
+                                  }
+                                ]
+                              }
+                            },
+                            {
+                              "id": "ComponentConsumptionTab",
+                              "widget": "sap.m.IconTabFilter",
+                              "properties": {
+                                "text": "{i18n>OEE}",
+                                "icon": "sap-icon://org-chart",
+                                "design": "Horizontal"
+                              },
+                              "aggregations": {
+                                "content": []
+                              }
+                            },
+                            {
+                              "id": "IconTabFilter1",
+                              "widget": "sap.m.IconTabFilter",
+                              "properties": {
+                                "text": "{i18n>componentConsumption}",
+                                "icon": "sap-icon://org-chart",
+                                "design": "Horizontal"
+                              },
+                              "aggregations": {
+                                "content": [
+                                  {
+                                    "id": "ComponentConsumptionListWidget2",
+                                    "widget": "sap.dm.dme.pod2.sfccomponents.consumption.widget.ComponentConsumptionListWidget",
+                                    "properties": {
+                                      "alternateRowColors": false,
+                                      "fixedLayout": true,
+                                      "showNoData": true,
+                                      "mode": "None",
+                                      "listType": "Inactive",
+                                      "allowComponentRemoval": false,
+                                      "columns": [
+                                        {
+                                          "id": "ComponentSequenceColumn",
+                                          "text": "{i18n-component>consumption.ConsumptionList.column.sequence}",
+                                          "field": "sequence",
+                                          "width": "10%",
+                                          "hAlign": "End"
+                                        },
+                                        {
+                                          "id": "ComponentNameColumn",
+                                          "text": "{i18n>component}",
+                                          "field": "component",
+                                          "width": "30%"
+                                        },
+                                        {
+                                          "id": "ComponentVersionColumn",
+                                          "text": "{i18n>version}",
+                                          "field": "componentVersion",
+                                          "width": "10%"
+                                        },
+                                        {
+                                          "id": "ComponentPlannedBatchColumn",
+                                          "text": "{i18n-component>consumption.ConsumptionList.column.plannedBatch}",
+                                          "field": "plannedBatch",
+                                          "width": "30%"
+                                        },
+                                        {
+                                          "id": "ComponentPostedQuantityColumn",
+                                          "text": "{i18n-component>consumption.ConsumptionList.column.postedQuantity}",
+                                          "field": "postedQuantity",
+                                          "width": "20%"
+                                        },
+                                        {
+                                          "id": "ComponentConsumeColumn",
+                                          "field": "consumeButton",
+                                          "width": "10%",
+                                          "text": "",
+                                          "hAlign": "Center",
+                                          "vAlign": "Middle"
+                                        }
+                                      ]
+                                    },
+                                    "events": {
+                                      "consume": [
+                                        {
+                                          "id": "NavigateToPlugin",
+                                          "action": "sap.dm.dme.pod2.action.page.NavigateToWidget",
+                                          "properties": {
+                                            "widgetId": "ComponentConsumptionDialog"
+                                          }
+                                        }
+                                      ]
+                                    }
+                                  }
+                                ]
+                              }
+                            }
+                          ]
+                        }
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "GoodsReceipt",
+      "widget": "sap.m.Page",
+      "properties": {
+        "showHeader": true,
+        "showFooter": false
+      },
+      "aggregations": {
+        "customHeader": [
+          {
+            "id": "GoodsReceiptToolbar",
+            "widget": "sap.m.Toolbar",
+            "aggregations": {
+              "content": [
+                {
+                  "id": "GoodsReceiptBackButton",
+                  "widget": "sap.m.Button",
+                  "properties": {
+                    "type": "Transparent",
+                    "icon": "sap-icon://nav-back",
+                    "width": "2.5rem",
+                    "height": "2.5rem"
+                  },
+                  "events": {
+                    "press": [
+                      {
+                        "id": "NavigateBackAction",
+                        "action": "sap.dm.dme.pod2.action.page.NavigateBack"
+                      }
+                    ]
+                  }
+                },
+                {
+                  "id": "GoodsReceiptTitle",
+                  "widget": "sap.m.Title",
+                  "properties": {
+                    "text": "{i18n>goodsReceipt}",
+                    "level": "Auto",
+                    "titleStyle": "H3",
+                    "wrapping": false
+                  }
+                }
+              ]
+            }
+          }
+        ],
+        "content": [
+          {
+            "id": "GoodsReceiptTable",
+            "widget": "sap.dm.dme.pod2.widget.goodsreceipt.GoodsReceiptTableWidget",
+            "properties": {
+              "alternateRowColors": false,
+              "autoPopinMode": true,
+              "fixedLayout": true,
+              "popinLayout": "GridSmall",
+              "showNoData": true,
+              "mode": "None",
+              "columns": [
+                {
+                  "field": "sequence",
+                  "importance": "High",
+                  "text": "{i18n-goodsReceipt>GoodsReceiptGroupTableWidget.columns.sequence}",
+                  "hAlign": "End"
+                },
+                {
+                  "field": "materialNo",
+                  "importance": "High",
+                  "text": "{i18n-goodsReceipt>GoodsReceiptGroupTableWidget.columns.materialNumber}",
+                  "width": "15%"
+                },
+                {
+                  "field": "description",
+                  "text": "{i18n-goodsReceipt>GoodsReceiptGroupTableWidget.columns.description}",
+                  "width": "20%"
+                },
+                {
+                  "field": "plannedBatch",
+                  "text": "{i18n-goodsReceipt>GoodsReceiptGroupTableWidget.columns.plannedBatch}"
+                },
+                {
+                  "field": "storageLocation",
+                  "text": "{i18n-goodsReceipt>GoodsReceiptGroupTableWidget.columns.storageLocation}"
+                },
+                {
+                  "field": "postedQuantity",
+                  "text": "{i18n-goodsReceipt>GoodsReceiptGroupTableWidget.columns.postedQuantity}",
+                  "width": "20%"
+                },
+                {
+                  "field": "post",
+                  "importance": "High",
+                  "text": "{i18n-goodsReceipt>GoodsReceiptGroupTableWidget.columns.postButtonLabel}",
+                  "headerText": "",
+                  "hAlign": "Center"
+                },
+                {
+                  "field": "postings",
+                  "importance": "High",
+                  "text": "{i18n-goodsReceipt>GoodsReceiptGroupTableWidget.columns.postingsButtonLabel}",
+                  "headerText": "",
+                  "hAlign": "Center"
+                }
+              ]
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "UpdateBatchCharacteristics",
+      "widget": "sap.m.Page",
+      "properties": {
+        "showHeader": true,
+        "showFooter": false
+      },
+      "aggregations": {
+        "customHeader": [
+          {
+            "id": "UpdateBatchCharacteristicToolbar",
+            "widget": "sap.m.Toolbar",
+            "aggregations": {
+              "content": [
+                {
+                  "id": "UpdateBatchCharacteristicBackButton",
+                  "widget": "sap.m.Button",
+                  "properties": {
+                    "type": "Transparent",
+                    "icon": "sap-icon://nav-back",
+                    "width": "2.5rem",
+                    "height": "2.5rem"
+                  },
+                  "events": {
+                    "press": [
+                      {
+                        "id": "NavigateBackAction",
+                        "action": "sap.dm.dme.pod2.action.page.NavigateBack"
+                      }
+                    ]
+                  }
+                },
+                {
+                  "id": "UpdateBatchCharacteristicTitle",
+                  "widget": "sap.m.Title",
+                  "properties": {
+                    "text": "{i18n>updateBatchCharacteristics}",
+                    "level": "Auto",
+                    "titleStyle": "H3",
+                    "wrapping": false
+                  }
+                }
+              ]
+            }
+          }
+        ],
+        "content": [
+          {
+            "id": "BatchListWidget",
+            "widget": "sap.dm.dme.pod2.batch.widget.BatchList",
+            "properties": {
+              "alternateRowColors": false,
+              "fixedLayout": true,
+              "showNoData": true,
+              "mode": "None",
+              "listType": "Inactive",
+              "growingScrollToLoad": true,
+              "pageSize": 20,
+              "columns": [
+                {
+                  "field": "batchNumber",
+                  "importance": "High",
+                  "text": "{i18n-batch>BatchListWidget.columns.batchNumber}"
+                },
+                {
+                  "field": "material",
+                  "importance": "High",
+                  "text": "{i18n-batch>BatchListWidget.columns.material}"
+                },
+                {
+                  "field": "productionDate",
+                  "text": "{i18n-batch>BatchListWidget.columns.productionDate}",
+                  "hAlign": "End"
+                },
+                {
+                  "field": "shelfLifeExpirationDate",
+                  "text": "{i18n-batch>BatchListWidget.columns.shelfLifeExpirationDate}",
+                  "hAlign": "End"
+                },
+                {
+                  "field": "detail",
+                  "importance": "High",
+                  "text": "{i18n-batch>BatchListWidget.columns.detailLabel}",
+                  "headerText": "",
+                  "hAlign": "Center"
+                }
+              ]
+            },
+            "events": {
+              "detailPress": [
+                {
+                  "id": "NavigateToPlugin",
+                  "action": "sap.dm.dme.pod2.action.page.NavigateToWidget",
+                  "properties": {
+                    "widgetId": "BatchCharacteristicsDetailDialog"
+                  }
+                }
+              ]
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "dialogs": [
+    {
+      "id": "WorkInstructionDialog",
+      "widget": "sap.m.Dialog",
+      "properties": {
+        "title": "WorkInstructionDialog",
+        "contentWidth": "1000px",
+        "contentHeight": "750px"
+      },
+      "aggregations": {
+        "content": [
+          {
+            "id": "WorkInstructionViewer1",
+            "widget": "sap.dm.dme.pod2.widget.workinstruction.WorkInstructionViewer",
+            "properties": {}
+          }
+        ],
+        "buttons": [
+          {
+            "id": "WorkInstructionDialog-CloseButton",
+            "widget": "sap.m.Button",
+            "properties": {
+              "text": "{i18n>ok}",
+              "type": "Emphasized"
+            },
+            "events": {
+              "press": [
+                {
+                  "id": "CloseDialog",
+                  "action": "sap.dm.dme.pod2.action.dialog.CloseDialog"
+                }
+              ]
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "DataCollectionDialog",
+      "widget": "sap.m.Dialog",
+      "properties": {
+        "title": "{i18n>collectData}",
+        "resizable": true,
+        "draggable": true,
+        "contentWidth": "75rem",
+        "contentHeight": "37.5rem"
+      },
+      "aggregations": {
+        "content": [
+          {
+            "id": "DataCollectionParamTable",
+            "widget": "sap.dm.dme.pod2.widget.datacollection.DataCollectionParamTable",
+            "properties": {
+              "alternateRowColors": true,
+              "autoPopinMode": true,
+              "fixedLayout": true,
+              "popinLayout": "GridSmall",
+              "showNoData": false,
+              "mode": "None",
+              "sticky": [
+                "ColumnHeaders",
+                "HeaderToolbar"
+              ],
+              "headerText": "{i18n>dataCollectionParameters}",
+              "columns": [
+                {
+                  "field": "name",
+                  "importance": "High",
+                  "text": "{i18n>DataCollectionParamTableWidget.column.parameterName}",
+                  "width": "15%"
+                },
+                {
+                  "field": "value",
+                  "text": "{i18n>DataCollectionParamTableWidget.column.parameterValue}",
+                  "width": "25%"
+                },
+                {
+                  "field": "minValue",
+                  "text": "{i18n>DataCollectionParamTableWidget.column.minValue}",
+                  "width": "10%"
+                },
+                {
+                  "field": "maxValue",
+                  "text": "{i18n>DataCollectionParamTableWidget.column.maxValue}",
+                  "width": "10%"
+                },
+                {
+                  "field": "unitOfMeasure",
+                  "text": "{i18n>unitOfMeasure}",
+                  "width": "10%"
+                },
+                {
+                  "field": "type",
+                  "text": "{i18n>type}",
+                  "width": "10%"
+                },
+                {
+                  "field": "comment",
+                  "importance": "High",
+                  "text": "{i18n>DataCollectionParamTableWidget.column.comment}",
+                  "width": "10%"
+                },
+                {
+                  "field": "attachments",
+                  "importance": "High",
+                  "text": "{i18n>DataCollectionParamTableWidget.column.attachments}",
+                  "width": "10%"
+                }
+              ]
+            }
+          }
+        ],
+        "buttons": [
+          {
+            "id": "SaveDataCollectionButton",
+            "widget": "sap.m.Button",
+            "properties": {
+              "text": "{i18n>save}",
+              "type": "Emphasized",
+              "enabled": "{= !%{/dataCollection/params/inputHasError} }"
+            },
+            "events": {
+              "press": [
+                {
+                  "id": "SaveDataCollection",
+                  "action": "sap.dm.dme.pod2.action.datacollection.LogDataCollectionGroup"
+                },
+                {
+                  "id": "RefreshDataCollectionGroups",
+                  "action": "sap.dm.dme.pod2.action.datacollection.RefreshDataCollectionGroups"
+                },
+                {
+                  "id": "CloseDataCollectionDialog",
+                  "action": "sap.dm.dme.pod2.action.dialog.CloseDialog"
+                }
+              ]
+            }
+          },
+          {
+            "id": "NextDataCollectionButton",
+            "widget": "sap.m.Button",
+            "properties": {
+              "text": "{i18n>next}",
+              "type": "Ghost"
+            },
+            "events": {
+              "press": [
+                {
+                  "id": "NextDataCollectionGroup",
+                  "action": "sap.dm.dme.pod2.action.datacollection.NextDataCollectionGroup"
+                }
+              ]
+            }
+          },
+          {
+            "id": "CloseDataCollectionButton",
+            "widget": "sap.m.Button",
+            "properties": {
+              "text": "{i18n>close}",
+              "type": "Ghost"
+            },
+            "events": {
+              "press": [
+                {
+                  "id": "CloseDataCollectionDialog",
+                  "action": "sap.dm.dme.pod2.action.dialog.CloseDialog"
+                }
+              ]
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "ComponentConsumptionDialog",
+      "widget": "sap.m.Dialog",
+      "properties": {
+        "title": "{i18n>consumeComponent}",
+        "contentWidth": "700px"
+      },
+      "aggregations": {
+        "content": [
+          {
+            "id": "ComponentConsumptionFormWidget1",
+            "widget": "sap.dm.dme.pod2.sfccomponents.consumption.widget.ComponentConsumptionFormWidget",
+            "properties": {}
+          }
+        ],
+        "buttons": [
+          {
+            "id": "ComponentConsumptionDialog-ConsumeButton",
+            "widget": "sap.m.Button",
+            "properties": {
+              "text": "{i18n>consume}",
+              "type": "Emphasized"
+            },
+            "events": {
+              "press": [
+                {
+                  "id": "Consume",
+                  "action": "sap.dm.dme.pod2.sfccomponents.consumption.action.Consume"
+                },
+                {
+                  "id": "CloseDialog",
+                  "action": "sap.dm.dme.pod2.action.dialog.CloseDialog"
+                }
+              ]
+            }
+          },
+          {
+            "id": "ComponentConsumptionDialog-ConsumeAndNextButton",
+            "widget": "sap.m.Button",
+            "properties": {
+              "text": "{i18n>consumeAndNext}",
+              "type": "Ghost"
+            },
+            "events": {
+              "press": [
+                {
+                  "id": "Consume",
+                  "action": "sap.dm.dme.pod2.sfccomponents.consumption.action.Consume"
+                },
+                {
+                  "id": "NextComponent",
+                  "action": "sap.dm.dme.pod2.sfccomponents.consumption.action.NextComponent"
+                }
+              ]
+            }
+          },
+          {
+            "id": "ComponentConsumptionDialog-SkipButton",
+            "widget": "sap.m.Button",
+            "properties": {
+              "text": "{i18n>skip}"
+            },
+            "events": {
+              "press": [
+                {
+                  "id": "NextComponent",
+                  "action": "sap.dm.dme.pod2.sfccomponents.consumption.action.NextComponent"
+                }
+              ]
+            }
+          },
+          {
+            "id": "ComponentConsumptionDialog-CloseButton",
+            "widget": "sap.m.Button",
+            "properties": {
+              "text": "{i18n>cancel}"
+            },
+            "events": {
+              "press": [
+                {
+                  "id": "CloseDialog",
+                  "action": "sap.dm.dme.pod2.action.dialog.CloseDialog"
+                }
+              ]
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "BatchCharacteristicsDetailDialog",
+      "widget": "sap.m.Dialog",
+      "properties": {
+        "title": "{i18n>batchCharacteristicsTitle}",
+        "contentWidth": "700px"
+      },
+      "aggregations": {
+        "content": [
+          {
+            "id": "BatchCharacteristicsDetailWidget",
+            "widget": "sap.dm.dme.pod2.batch.widget.UpdateBatchCharacteristics",
+            "properties": {}
+          }
+        ],
+        "buttons": [
+          {
+            "id": "BatchCharacteristicsDetailDialog-SaveButton",
+            "widget": "sap.m.Button",
+            "properties": {
+              "text": "{i18n>save}",
+              "type": "Emphasized"
+            },
+            "events": {
+              "press": [
+                {
+                  "id": "UpdateBatchCharacteristics",
+                  "action": "sap.dm.dme.pod2.batch.action.UpdateBatchCharacteristic"
+                },
+                {
+                  "id": "CloseDialog",
+                  "action": "sap.dm.dme.pod2.action.dialog.CloseDialog"
+                }
+              ]
+            }
+          },
+          {
+            "id": "BatchCharacteristicsDetailDialog-CloseButton",
+            "widget": "sap.m.Button",
+            "properties": {
+              "text": "{i18n>cancel}"
+            },
+            "events": {
+              "press": [
+                {
+                  "id": "CloseDialog",
+                  "action": "sap.dm.dme.pod2.action.dialog.CloseDialog"
+                }
+              ]
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "createdFromTemplate": "ORDER",
+  "target": "CLOUD"
+}

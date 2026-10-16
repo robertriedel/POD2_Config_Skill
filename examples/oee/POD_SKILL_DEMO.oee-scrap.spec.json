@@ -1,0 +1,85 @@
+{
+  "prefix": "OEE",
+  "target": {
+    "tab": "OEE"
+  },
+  "title": "OEE Dashboard",
+  "pp": {
+    "name": "Create_Random_Indicators_OEE",
+    "inputs": [
+      {
+        "parameter": "inResource",
+        "value": "{/execution/operationActivity/lastSelected/resource}"
+      }
+    ]
+  },
+  "context": [
+    {
+      "label": "Order",
+      "path": "/workList/lastSelected/order"
+    },
+    {
+      "label": "Phase",
+      "path": "/execution/operationActivity/lastSelected/operationActivity"
+    },
+    {
+      "label": "Resource",
+      "path": "/execution/operationActivity/lastSelected/resource"
+    }
+  ],
+  "fields": [
+    {
+      "source": "pp:outOEE",
+      "label": "OEE",
+      "scale": "percent",
+      "thresholds": [
+        65,
+        85
+      ],
+      "hero": true,
+      "icon": "sap-icon://performance",
+      "caption": "= Availability × Performance × Quality"
+    },
+    {
+      "source": "pp:outAvailability",
+      "label": "Availability",
+      "scale": "percent",
+      "thresholds": [
+        65,
+        85
+      ],
+      "icon": "sap-icon://time-entry-request"
+    },
+    {
+      "source": "pp:outPerformance",
+      "label": "Performance",
+      "scale": "percent",
+      "thresholds": [
+        65,
+        85
+      ],
+      "icon": "sap-icon://process"
+    },
+    {
+      "source": "pp:outQuality",
+      "label": "Quality",
+      "scale": "percent",
+      "thresholds": [
+        65,
+        85
+      ],
+      "icon": "sap-icon://quality-issue"
+    },
+    {
+      "source": "pp:outScrapRate",
+      "label": "Scrap",
+      "scale": "percent",
+      "thresholds": [
+        2,
+        5
+      ],
+      "lowerIsBetter": true,
+      "icon": "sap-icon://delete"
+    }
+  ]
+}

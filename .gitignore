@@ -1,0 +1,4 @@
+.DS_Store
+*.preview.html
+examples/**/*.oee.json
+examples/**/*_OEE.json

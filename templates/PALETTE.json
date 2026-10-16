@@ -1,0 +1,478 @@
+{
+  "_version": 1,
+  "id": "PLUGIN",
+  "description": "",
+  "favicon": "",
+  "pages": [
+    {
+      "id": "MainPage",
+      "widget": "sap.m.Page",
+      "properties": {
+        "showHeader": true,
+        "showFooter": false
+      },
+      "aggregations": {
+        "customHeader": [
+          {
+            "id": "MainToolbar",
+            "widget": "sap.m.Toolbar"
+          }
+        ],
+        "content": [
+          {
+            "id": "Button1",
+            "widget": "sap.m.Button",
+            "properties": {
+              "text": "Button",
+              "type": "Ghost"
+            },
+            "events": {}
+          },
+          {
+            "id": "CheckBox1",
+            "widget": "sap.m.CheckBox",
+            "properties": {},
+            "events": {}
+          },
+          {
+            "id": "DateTimeText1",
+            "widget": "sap.dm.dme.pod2.widget.core.DateTimeText",
+            "properties": {
+              "date1": null,
+              "date2": null,
+              "displayFormat": "Date",
+              "emptyIndicatorMode": "On"
+            },
+            "events": {}
+          },
+          {
+            "id": "ExpandableText1",
+            "widget": "sap.m.ExpandableText",
+            "properties": {
+              "text": "Expandable Text",
+              "maxCharacters": 100,
+              "overflowMode": "Popover"
+            },
+            "events": {}
+          },
+          {
+            "id": "HTML1",
+            "widget": "sap.ui.core.HTML",
+            "properties": {
+              "content": "<h1>HTML</h1>",
+              "sanitizeContent": true
+            },
+            "events": {}
+          },
+          {
+            "id": "Icon1",
+            "widget": "sap.ui.core.Icon",
+            "properties": {
+              "src": "sap-icon://question-mark"
+            },
+            "events": {}
+          },
+          {
+            "id": "IFrame1",
+            "widget": "sap.dm.dme.pod2.widget.core.IFrame",
+            "properties": {},
+            "events": {}
+          },
+          {
+            "id": "Image1",
+            "widget": "sap.m.Image",
+            "properties": {},
+            "events": {}
+          },
+          {
+            "id": "DynamicPage1",
+            "widget": "sap.f.DynamicPage",
+            "properties": {
+              "headerPinnable": true
+            },
+            "events": {},
+            "aggregations": {
+              "heading": [
+                {
+                  "id": "DynamicPage1-title",
+                  "widget": "sap.m.Title",
+                  "properties": {
+                    "text": "DynamicPage1"
+                  }
+                }
+              ],
+              "headerContent": [
+                {
+                  "id": "HBox1",
+                  "widget": "sap.m.HBox",
+                  "properties": {
+                    "renderType": "Bare"
+                  },
+                  "events": {},
+                  "aggregations": {
+                    "items": [
+                      {
+                        "id": "IconTabBar1",
+                        "widget": "sap.m.IconTabBar",
+                        "properties": {
+                          "headerMode": "Inline",
+                          "expandable": false,
+                          "height": "100%"
+                        },
+                        "events": {},
+                        "aggregations": {
+                          "items": [
+                            {
+                              "id": "IconTabFilter1",
+                              "widget": "sap.m.IconTabFilter",
+                              "properties": {
+                                "text": "Icon Tab Filter",
+                                "icon": "sap-icon://folder-blank"
+                              }
+                            },
+                            {
+                              "id": "IconTabFilter2",
+                              "widget": "sap.m.IconTabFilter",
+                              "properties": {
+                                "text": "Icon Tab Filter",
+                                "icon": "sap-icon://folder-blank"
+                              },
+                              "events": {},
+                              "aggregations": {
+                                "content": [
+                                  {
+                                    "id": "ObjectPageLayout1",
+                                    "widget": "sap.uxap.ObjectPageLayout",
+                                    "properties": {
+                                      "headerText": "ObjectPageLayout1",
+                                      "showTitleInHeaderContent": true,
+                                      "showHeaderContent": true,
+                                      "upperCaseAnchorBar": false
+                                    },
+                                    "events": {},
+                                    "aggregations": {
+                                      "sections": [
+                                        {
+                                          "id": "ObjectPageSection1",
+                                          "widget": "sap.uxap.ObjectPageSection",
+                                          "properties": {
+                                            "title": "ObjectPageSection1",
+                                            "titleUppercase": false
+                                          },
+                                          "aggregations": {
+                                            "subSections": [
+                                              {
+                                                "id": "ObjectPageSubSection1",
+                                                "widget": "sap.uxap.ObjectPageSubSection",
+                                                "properties": {
+                                                  "title": "ObjectPageSubSection1",
+                                                  "titleUppercase": false
+                                                },
+                                                "aggregations": {
+                                                  "actions": [
+                                                    {
+                                                      "id": "Panel1",
+                                                      "widget": "sap.m.Panel",
+                                                      "properties": {
+                                                        "headerText": "Panel"
+                                                      },
+                                                      "events": {},
+                                                      "aggregations": {
+                                                        "content": [
+                                                          {
+                                                            "id": "ResponsiveSplitter1",
+                                                            "widget": "sap.ui.layout.ResponsiveSplitter",
+                                                            "properties": {},
+                                                            "events": {},
+                                                            "aggregations": {
+                                                              "rootPaneContainer": [
+                                                                {
+                                                                  "id": "PaneContainer1",
+                                                                  "widget": "sap.ui.layout.PaneContainer",
+                                                                  "aggregations": {
+                                                                    "panes": [
+                                                                      {
+                                                                        "id": "SplitPane1",
+                                                                        "widget": "sap.ui.layout.SplitPane"
+                                                                      },
+                                                                      {
+                                                                        "id": "SplitPane2",
+                                                                        "widget": "sap.ui.layout.SplitPane"
+                                                                      }
+                                                                    ]
+                                                                  }
+                                                                }
+                                                              ]
+                                                            }
+                                                          }
+                                                        ]
+                                                      }
+                                                    },
+                                                    {
+                                                      "id": "ScrollContainer1",
+                                                      "widget": "sap.m.ScrollContainer",
+                                                      "properties": {
+                                                        "vertical": true,
+                                                        "height": "100%"
+                                                      },
+                                                      "events": {}
+                                                    },
+                                                    {
+                                                      "id": "SimpleForm1",
+                                                      "widget": "sap.ui.layout.form.SimpleForm",
+                                                      "properties": {
+                                                        "editable": true
+                                                      },
+                                                      "events": {},
+                                                      "aggregations": {
+                                                        "content": [
+                                                          {
+                                                            "id": "Label2",
+                                                            "widget": "sap.m.Label",
+                                                            "properties": {
+                                                              "text": "Label",
+                                                              "showColon": true
+                                                            }
+                                                          },
+                                                          {
+                                                            "id": "Input2",
+                                                            "widget": "sap.m.Input"
+                                                          }
+                                                        ]
+                                                      }
+                                                    },
+                                                    {
+                                                      "id": "Splitter1",
+                                                      "widget": "sap.ui.layout.Splitter",
+                                                      "properties": {},
+                                                      "events": {}
+                                                    },
+                                                    {
+                                                      "id": "Toolbar1",
+                                                      "widget": "sap.m.Toolbar",
+                                                      "properties": {},
+                                                      "events": {}
+                                                    },
+                                                    {
+                                                      "id": "ToolbarSeparator1",
+                                                      "widget": "sap.m.ToolbarSeparator",
+                                                      "properties": {},
+                                                      "events": {}
+                                                    }
+                                                  ],
+                                                  "blocks": [
+                                                    {
+                                                      "id": "ToolbarSpacer1",
+                                                      "widget": "sap.m.ToolbarSpacer",
+                                                      "properties": {},
+                                                      "events": {}
+                                                    }
+                                                  ]
+                                                }
+                                              }
+                                            ]
+                                          }
+                                        },
+                                        {
+                                          "id": "ObjectPageSection2",
+                                          "widget": "sap.uxap.ObjectPageSection",
+                                          "properties": {
+                                            "title": "ObjectPageSection2",
+                                            "titleUppercase": false
+                                          },
+                                          "events": {},
+                                          "aggregations": {
+                                            "subSections": [
+                                              {
+                                                "id": "ObjectPageSubSection2",
+                                                "widget": "sap.uxap.ObjectPageSubSection",
+                                                "properties": {
+                                                  "title": "ObjectPageSubSection2",
+                                                  "titleUppercase": false
+                                                },
+                                                "aggregations": {
+                                                  "actions": [
+                                                    {
+                                                      "id": "VBox1",
+                                                      "widget": "sap.m.VBox",
+                                                      "properties": {
+                                                        "renderType": "Bare"
+                                                      },
+                                                      "events": {}
+                                                    }
+                                                  ]
+                                                }
+                                              },
+                                              {
+                                                "id": "ObjectPageSubSection3",
+                                                "widget": "sap.uxap.ObjectPageSubSection",
+                                                "properties": {
+                                                  "title": "ObjectPageSubSection3",
+                                                  "titleUppercase": false
+                                                },
+                                                "events": {},
+                                                "aggregations": {}
+                                              }
+                                            ]
+                                          }
+                                        }
+                                      ]
+                                    }
+                                  }
+                                ]
+                              }
+                            }
+                          ]
+                        }
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          },
+          {
+            "id": "Title1",
+            "widget": "sap.m.Title",
+            "properties": {
+              "text": "Title"
+            },
+            "events": {}
+          },
+          {
+            "id": "TextArea1",
+            "widget": "sap.m.TextArea",
+            "properties": {},
+            "events": {}
+          },
+          {
+            "id": "Text1",
+            "widget": "sap.m.Text",
+            "properties": {
+              "text": "Text"
+            },
+            "events": {}
+          },
+          {
+            "id": "Switch1",
+            "widget": "sap.m.Switch",
+            "properties": {},
+            "events": {}
+          },
+          {
+            "id": "Select1",
+            "widget": "sap.m.Select",
+            "properties": {
+              "forceSelection": false
+            },
+            "events": {}
+          },
+          {
+            "id": "RadioButtonGroup1",
+            "widget": "sap.m.RadioButtonGroup",
+            "properties": {
+              "selectedIndex": -1
+            },
+            "events": {},
+            "aggregations": {
+              "buttons": [
+                {
+                  "id": "RadioButtonGroup1-button1",
+                  "widget": "sap.m.RadioButton",
+                  "properties": {
+                    "selected": false,
+                    "text": "Radio Button 1"
+                  }
+                },
+                {
+                  "id": "RadioButtonGroup1-button2",
+                  "widget": "sap.m.RadioButton",
+                  "properties": {
+                    "selected": false,
+                    "text": "Radio Button 2"
+                  }
+                }
+              ]
+            }
+          },
+          {
+            "id": "RadioButton1",
+            "widget": "sap.m.RadioButton",
+            "properties": {},
+            "events": {}
+          },
+          {
+            "id": "MessageHistory1",
+            "widget": "sap.dm.dme.pod2.widget.core.MessageHistory",
+            "properties": {
+              "text": "Message History",
+              "type": "Ghost"
+            },
+            "events": {}
+          },
+          {
+            "id": "MenuButton1",
+            "widget": "sap.m.MenuButton",
+            "properties": {
+              "text": "Menu Button"
+            },
+            "events": {},
+            "aggregations": {
+              "menuItems": [
+                {
+                  "properties": {
+                    "text": "Menu Item"
+                  },
+                  "id": "MenuButton1-Item1",
+                  "widget": "sap.m.MenuItem"
+                },
+                {
+                  "properties": {
+                    "text": "Menu Item"
+                  },
+                  "id": "MenuButton1-Item2",
+                  "widget": "sap.m.MenuItem"
+                }
+              ]
+            }
+          },
+          {
+            "id": "MaskInput1",
+            "widget": "sap.m.MaskInput",
+            "properties": {},
+            "events": {}
+          },
+          {
+            "id": "Link1",
+            "widget": "sap.m.Link",
+            "properties": {
+              "text": "Link",
+              "target": "_blank",
+              "rel": "noopener noreferrer"
+            },
+            "events": {}
+          },
+          {
+            "id": "Label1",
+            "widget": "sap.m.Label",
+            "properties": {
+              "text": "Label",
+              "showColon": true
+            },
+            "events": {}
+          },
+          {
+            "id": "Input1",
+            "widget": "sap.m.Input",
+            "properties": {},
+            "events": {}
+          }
+        ]
+      }
+    }
+  ],
+  "dialogs": [],
+  "createdFromTemplate": "BLANK",
+  "contentDensity": "Compact",
+  "target": "CLOUD"
+}
